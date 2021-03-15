@@ -1,0 +1,39 @@
+menu "Roseguarden"
+
+    config ROSEGUARDEN_WIFI_SSID
+        string "WIFI SSID"
+        default ""
+        help
+            SSID to connect to
+
+    config ROSEGUARDEN_WIFI_PASSWORD
+        string "WIFI Password"
+        default ""
+        help
+            WIFI password (leave empty is network is not encrypted)
+            
+    config ROSEGUARDEN_NODE_NAME
+        string "Node Name"
+        default ""
+        help
+            Human-readable name of the node
+            
+    config ROSEGUARDEN_NODE_FINGERPRINT
+        string "Node Fingerprint"
+        default "00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:00:11:22:33"
+        help
+            Fingerprint of the node in hex notation
+            
+    config ROSEGUARDEN_NODE_AUTHENTIFICATION
+        string "Node Authentification"
+        default "Kol-Bi-Hop-Ban-Gan-To-Sep+129"
+        help
+            Authentication string of the node
+            
+    config ROSEGUARDEN_SERVER_URL
+        string "Endpoint url to communicate with"
+        default "https://roseguarden.fabba.space/api/v1/nodes"
+        help
+            Full url with leading http[s]://
+           
+endmenu
