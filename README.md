@@ -54,9 +54,17 @@ Display logging output
 
 ### Hardware Setup
 
+#### RFID Reader
+
 The MOD-RFID1356MIFARE can be powered from USB or directly via the UEXT port. Bridge the little jumper on the back side to power it directly from the 3.3V provided by the UEXT port. Once this jumper is bridged one shouldn't connect USB and UEXT at the same time.
 
 The MOD-RFID1356MIFARE has to be set to its UART-Mode. Power the device (either via USB or by connecting it to a UEXT port), press and hold the button until both LEDs (green and red) blink. The mode will be saved and the device will boot into the same mode upon the next power cycle.
+
+#### ESP32 Reset Circuit
+
+The reset circuit of the Olimex ESP32-EVB is releasing the MCU from reset too early (when the power is not stable enough). This can cause the chip to hang.
+
+To fix this, replace `R24` (located close to the crystal oscillator) with 100kΩ.
 
 ## Configuration
 
