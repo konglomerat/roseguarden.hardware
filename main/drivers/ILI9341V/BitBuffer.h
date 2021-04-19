@@ -23,12 +23,12 @@ public:
 
 	void set(uint32_t x, uint32_t y, bool val)
 	{
-		assert(x < SIZE_X);
-		assert(y < SIZE_Y);
+		if (x < SIZE_X && y < SIZE_Y)
+		{
+			auto absolutePixelIndex = x + SIZE_X * (SIZE_Y - 1 - y);
 
-		auto absolutePixelIndex = x + SIZE_X * (SIZE_Y - 1 - y);
-
-		data[absolutePixelIndex] = val;
+			data[absolutePixelIndex] = val;
+		}
 	}
 
 	void clear()
