@@ -28,6 +28,8 @@ void app_main(void)
 {
 	ESP_LOGD(TAG, "roseguarden node booted.");
 
+	vTaskDelay(1000 / portTICK_PERIOD_MS);
+
 	//Initialize NVS
 	esp_err_t ret = nvs_flash_init();
 	if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
