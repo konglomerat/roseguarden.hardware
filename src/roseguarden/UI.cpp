@@ -22,7 +22,7 @@ uint32_t UI::ticksToWait;
 bool UI::initialized = false;
 
 const char* connected = "CONNECTED TO AP";
-const char* notConnected = "NOT CONNECTED TO AP";
+const char* notConnected = "NOT CONNECTED";
 
 const char* doorOpen = "DOOR OPEN";
 const char* doorLocked = "DOOR LOCKED";
@@ -108,7 +108,7 @@ std::string_view UI::getStateString(Engine::State_t& state)
 	case Engine::State_t::INIT:
 		return "INITIALISATION";
 	case Engine::State_t::READY:
-		return "PRESENT CARD TO ENTER";
+		return "PRESENT CARD";
 	case Engine::State_t::WAIT_AUTH:
 		return "NODE NOT AUTHORIZED";
 	case Engine::State_t::OPEN:
@@ -116,7 +116,7 @@ std::string_view UI::getStateString(Engine::State_t& state)
 	case Engine::State_t::ACCESS_DENIED:
 		return "ACCESS DENIED";
 	case Engine::State_t::SHOW_ASSIGN_INFO:
-		return "GET CARD AUTH CODE";
+		return "GET AUTH CODE";
 	case Engine::State_t::ERROR:
 		return "ERROR...RESTARTING...";
 	default:
