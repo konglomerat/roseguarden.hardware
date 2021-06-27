@@ -192,12 +192,12 @@ namespace Roseguarden
 		if (Drivers::Button::isPressed())
 		{
 			ESP_LOGI(TAG, "Running as registration terminal");
-			currentMode = Mode_t::REGISTRATION_TERMINAL;
+			currentMode = Mode_t::DOOR;
 		}
 		else
 		{
 			ESP_LOGI(TAG, "Running as door node");
-			currentMode = Mode_t::DOOR;
+			currentMode = Mode_t::REGISTRATION_TERMINAL;
 		}
 
 		if (nodeName.empty())
@@ -453,6 +453,7 @@ namespace Roseguarden
 				auto cardID = Drivers::MOD_RFID1356::getCardID();
 				if (cardID)
 				{
+					ESP_LOGD(TAG, "Request auth. token for card with ID: %08X", *cardID);
 					auto hexString = getHexStringFromCardID(*cardID);
 
 					auto response = RoseguardenNodeClient::sendRequestAssignCode(hexString);
