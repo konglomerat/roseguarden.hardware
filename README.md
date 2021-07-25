@@ -5,7 +5,19 @@ This is the firmware for a Roseguarden door node based on an ESP32 microcontroll
 
 ### Project Setup
 
-The firmware is based on ESP-IDF with its CMake build system which is supported by different IDEs.
+The firmware is based on `ESP-IDF` with its CMake build system which is supported by different IDEs.
+
+#### installation
+
+to work with this porject you have to follow [this step-by-step guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html) and install all prerequisites, software libraries provided by Espressif in ESP-IDF repository and you also need to install the tools used by ESP-IDF, such as the compiler, debugger, Python packages, etc.
+
+#### installation with platform.io
+
+Platformio is a new generation toolset for embedded C/C++ development.
+you can use platform.io Tools to increase you development experience. they are available for different editors.
+
+You can install platformIO for vs-code editor [with this documentation](https://docs.platformio.org/en/latest/integration/ide/vscode.html#ide-vscode)
+
 
 #### Eclipse with IDF-Plugin
 
@@ -26,6 +38,10 @@ Here's a short summary of the minimal installation steps needed on a linux syste
 - Flash the binary by pressing the play symbol
 
 #### Headless build
+
+at first you have to install the `idf.py` command line tool, which provides a front-end for easily managing your project builds.
+
+The [getting started guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#get-started-configure) contains a brief introduction to how to set up idf.py to configure, build, and flash projects.
 
 Checkout all submodules
 
