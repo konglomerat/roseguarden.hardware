@@ -189,15 +189,15 @@ namespace Roseguarden
 		nodeName = CONFIG_ROSEGUARDEN_NODE_NAME;
 
 		Drivers::Button::init();
-		if (Drivers::Button::isPressed())
+		if (CONFIG_ROSEGUARDEN_SET_DEVICE_AS_REGISTRATION_TERMINAL || Drivers::Button::isPressed())
 		{
 			ESP_LOGI(TAG, "Running as registration terminal");
-			currentMode = Mode_t::DOOR;
+			currentMode = Mode_t::REGISTRATION_TERMINAL;
 		}
 		else
 		{
 			ESP_LOGI(TAG, "Running as door node");
-			currentMode = Mode_t::REGISTRATION_TERMINAL;
+			currentMode = Mode_t::DOOR;
 		}
 
 		if (nodeName.empty())

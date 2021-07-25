@@ -1,5 +1,11 @@
 menu "Roseguarden"
 
+    config ROSEGUARDEN_SET_DEVICE_AS_REGISTRATION_TERMINAL
+        bool "Run as Registration Terminal"
+        default n
+        help
+            Run Device as Kard registration terminal
+
     config ROSEGUARDEN_WIFI_SSID
         string "WIFI SSID"
         default ""
