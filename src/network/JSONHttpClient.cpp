@@ -34,7 +34,7 @@ namespace Network
 
 		config.url = url.data();
 		config.event_handler = httpEventHandler;
-		config.timeout_ms = 10000;
+		config.timeout_ms = 600000;
 		config.method = HTTP_METHOD_POST;
 
 		esp_http_client_handle_t clientHandle = esp_http_client_init(&config);

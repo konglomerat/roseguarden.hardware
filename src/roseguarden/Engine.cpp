@@ -95,7 +95,7 @@ namespace Roseguarden
 	void Engine::initDoor()
 	{
 		Door::Settings_t doorSettings;
-		doorSettings.closeTimeoutInSeconds = 3;
+		doorSettings.closeTimeoutInSeconds = 10;
 		Door::init(doorSettings);
 
 		Door::close();
@@ -200,7 +200,11 @@ namespace Roseguarden
 		nodeName = CONFIG_ROSEGUARDEN_NODE_NAME;
 
 		Drivers::Button::init();
-		if (CONFIG_ROSEGUARDEN_SET_DEVICE_AS_REGISTRATION_TERMINAL || Drivers::Button::isPressed())
+
+		const char *setDeviceAsRestrationTerminal = CONFIG_ROSEGUARDEN_SET_DEVICE_AS_REGISTRATION_TERMINAL;
+		const char *deviceAsRestration = "y";
+
+		if (strcmp(deviceAsRestration, setDeviceAsRestrationTerminal) == 0 || Drivers::Button::isPressed())
 		{
 			ESP_LOGI(TAG, "Running as registration terminal");
 			currentMode = Mode_t::REGISTRATION_TERMINAL;
