@@ -11,7 +11,6 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "nvs_flash.h"
-
 #include "roseguarden/Engine.h"
 
 #define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE

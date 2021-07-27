@@ -21,18 +21,24 @@ static const char *TAG = "TextView";
 
 const uint32_t xCoordinate = 10;
 const uint32_t yCoordinateHeader = 10;
-const uint32_t yCoordinateCenterLine1 = 120;
-const uint32_t yCoordinateCenterLine2 = 145;
-const uint32_t yCoordinateBottomLine1 = 260;
-const uint32_t yCoordinateBottomLine2 = 280;
-const uint32_t yCoordinateBottomLine3 = 300;
+const uint32_t yCoordinateCenterLine1 = 100;
+const uint32_t yCoordinateCenterLine2 = 140;
 
-TextView::TextView() : header(Graphics::Coordinate_t{xCoordinate,yCoordinateHeader}),
+const uint32_t yCoordinateBottomLine1 = 210;
+const uint32_t yCoordinateBottomLine2 = 230;
+const uint32_t yCoordinateBottomLine3 = 250;
+
+const uint32_t yCoordinateBottomLine4 = 280;
+const uint32_t yCoordinateBottomLine5 = 300;
+
+TextView::TextView() : header(Graphics::Coordinate_t{xCoordinate,yCoordinateHeader}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL}),
 					centerLine1(Graphics::Coordinate_t{xCoordinate,yCoordinateCenterLine1}),
 					centerLine2(Graphics::Coordinate_t{xCoordinate,yCoordinateCenterLine2}),
 					bottomLine1(Graphics::Coordinate_t{xCoordinate,yCoordinateBottomLine1}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL}),
 					bottomLine2(Graphics::Coordinate_t{xCoordinate,yCoordinateBottomLine2}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL}),
-					bottomLine3(Graphics::Coordinate_t{xCoordinate,yCoordinateBottomLine3}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL})
+					bottomLine3(Graphics::Coordinate_t{xCoordinate,yCoordinateBottomLine3}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL}),
+					bottomLine4(Graphics::Coordinate_t{xCoordinate,yCoordinateBottomLine4}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL}),
+					bottomLine5(Graphics::Coordinate_t{xCoordinate,yCoordinateBottomLine5}, Graphics::DefaultForegroundColor, Graphics::DefaultBackGroundColor, Graphics::FontProperties_t{Graphics::FontProperties_t::Size_t::SMALL})
 {
 }
 
@@ -57,6 +63,12 @@ void TextView::setLineText(const TextLines_t& line, std::string_view text)
 		break;
 	case BOTTOM_3:
 		bottomLine3.setText(text);
+		break;
+	case BOTTOM_4:
+		bottomLine4.setText(text);
+		break;
+	case BOTTOM_5:
+		bottomLine5.setText(text);
 		break;
 	default:
 		ESP_LOGE(TAG, "Unknown line.");

@@ -24,7 +24,9 @@ public:
 		CENTER_2,
 		BOTTOM_1,
 		BOTTOM_2,
-		BOTTOM_3
+		BOTTOM_3,
+		BOTTOM_4,
+		BOTTOM_5,
 	};
 public:
 	TextView();
@@ -36,6 +38,8 @@ private:
 	Graphics::TextBox_t bottomLine1;
 	Graphics::TextBox_t bottomLine2;
 	Graphics::TextBox_t bottomLine3;
+	Graphics::TextBox_t bottomLine4;
+	Graphics::TextBox_t bottomLine5;
 };
 
 }

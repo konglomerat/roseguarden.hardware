@@ -23,12 +23,22 @@ namespace Network
 class JSONHttpClient
 {
 public:
+	enum State_t
+	{
+		ERROR,
+		DISCONNECTED,
+		CONNECTED
+	};
 	using Response_t = std::pair<uint32_t, ordered_json>;
 	static std::optional<Response_t> processRequest(std::string_view url, const ordered_json& jsonRequest);
+
+public:
+	static State_t getState();
 
 private:
 	static esp_err_t httpEventHandler(esp_http_client_event_t *evt);
 	static std::string responseBuffer;
+	static State_t state;
 };
 
 }

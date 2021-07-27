@@ -25,6 +25,8 @@ namespace Network
 
 	std::string JSONHttpClient::responseBuffer;
 
+	JSONHttpClient::State_t JSONHttpClient::state = DISCONNECTED;
+
 	std::optional<JSONHttpClient::Response_t> JSONHttpClient::processRequest(std::string_view url, const ordered_json &jsonRequest)
 	{
 		esp_http_client_config_t config;
@@ -86,15 +88,23 @@ namespace Network
 		return result;
 	}
 
+
+	JSONHttpClient::State_t JSONHttpClient::getState()
+	{
+		return state;
+	}
+
 	esp_err_t JSONHttpClient::httpEventHandler(esp_http_client_event_t *evt)
 	{
 		switch (evt->event_id)
 		{
 		case HTTP_EVENT_ERROR:
+			state = ERROR;
 			ESP_LOGV(TAG, "HTTP_EVENT_ERROR");
 			break;
 
 		case HTTP_EVENT_ON_CONNECTED:
+			state = CONNECTED;
 			ESP_LOGV(TAG, "HTTP_EVENT_ON_CONNECTED");
 			break;
 
@@ -108,7 +118,6 @@ namespace Network
 			break;
 
 		case HTTP_EVENT_ON_DATA:
-
 			// HTTP 1.1 Chunked responses are not supported
 			if (!esp_http_client_is_chunked_response(evt->client))
 			{

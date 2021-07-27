@@ -17,6 +17,7 @@
 #include "drivers/MOD_RFID1356.h"
 #include "drivers/Button.h"
 #include "network/RoseguardenNodeClient.h"
+#include "network/JSONHttpClient.h"
 using namespace Network;
 
 #include <string>
@@ -50,7 +51,17 @@ namespace Roseguarden
 		return (!Door::isOpen());
 	}
 
-	bool Engine::isConnectedToWifiAP()
+	bool Engine::hasConnectedServerAnError()
+	{
+		return Network::JSONHttpClient::getState() == Network::JSONHttpClient::State_t::ERROR || !Engine::isConnectedToWifi();
+	}
+
+	bool Engine::isConnectedToServer()
+	{
+		return Network::JSONHttpClient::getState() == Network::JSONHttpClient::State_t::CONNECTED;
+	}
+
+	bool Engine::isConnectedToWifi()
 	{
 		return Drivers::Wifi::getState() == Drivers::Wifi::State_t::CONNECTED;
 	}
@@ -231,7 +242,8 @@ namespace Roseguarden
 		while (true)
 		{
 
-			if (auto newConnected = isConnectedToWifiAP(); newConnected != connected)
+			//if (auto newConnected = isConnectedToWifiAP(); newConnected != connected)
+			if (auto newConnected = isConnectedToWifi(); newConnected != connected)
 			{
 				connected = newConnected;
 				if (newConnected)

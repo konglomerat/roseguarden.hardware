@@ -13,6 +13,7 @@
 #include "esp_wifi.h"
 
 #include <cstring>
+#include <string>
 
 namespace Drivers
 {
@@ -24,9 +25,6 @@ Wifi::State_t Wifi::state = DISCONNECTED;
 
 esp_event_handler_instance_t Wifi::wifiEventHandler;
 esp_event_handler_instance_t Wifi::ipEventHandler;
-
-uint32_t Wifi::numberOfConnectionAttempts = 0;
-const uint32_t maximumNumberOfConnectionAttempts = 10;
 
 void Wifi::init()
 {
@@ -110,14 +108,12 @@ void Wifi::eventHandler(void* arg, esp_event_base_t event_base, int32_t event_id
 	else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED)
 	{
 		state = DISCONNECTED;
-		if (numberOfConnectionAttempts < maximumNumberOfConnectionAttempts)
-		{
-			esp_wifi_connect();
-			numberOfConnectionAttempts++;
-			ESP_LOGV(TAG, "Retry to connect to the AP.");
-		}
+		
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-		ESP_LOGV(TAG,"Connect to the AP failed.");
+		esp_wifi_connect();
+		ESP_LOGV(TAG, "Retry to connect to the AP.");
+
 	}
 	else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_CONNECTED)
 	{
@@ -129,10 +125,8 @@ void Wifi::eventHandler(void* arg, esp_event_base_t event_base, int32_t event_id
 		state = CONNECTED;
 		ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
 		ESP_LOGV(TAG, "Got ip:" IPSTR, IP2STR(&event->ip_info.ip));
-		numberOfConnectionAttempts = 0;
 	}
 }
 
 
 }
-

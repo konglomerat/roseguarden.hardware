@@ -34,7 +34,6 @@ public:
 private:
 	static bool isInitialized;
 	static State_t state;
-	static uint32_t numberOfConnectionAttempts;
 
 private:
 	static esp_event_handler_instance_t wifiEventHandler;

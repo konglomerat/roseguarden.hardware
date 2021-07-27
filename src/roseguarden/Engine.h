@@ -37,7 +37,9 @@ public:
 
 	static std::string_view getAssignCodeString();
 	static bool isDoorLocked();
-	static bool isConnectedToWifiAP();
+	static bool isConnectedToServer();
+	static bool hasConnectedServerAnError();
+	static bool isConnectedToWifi();
 	static bool isCardPresented();
 	static std::string_view getNodeName();
 

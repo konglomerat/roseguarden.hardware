@@ -37,6 +37,9 @@ private:
 private:
 	static uint32_t ticksToWait;
 	static bool initialized;
+	static uint32_t loadingSpinnerIndex;
+	static std::string notConectedWifiOutput;
+	static std::string headerTitle;
 
 private:
 	static std::string_view getStateString(Engine::State_t&);

@@ -1,8 +1,8 @@
 menu "Roseguarden"
 
     config ROSEGUARDEN_SET_DEVICE_AS_REGISTRATION_TERMINAL
-        bool "Run as Registration Terminal"
-        default n
+        string "Run as Registration Terminal [y|n]"
+        default "n"
         help
             Run Device as Kard registration terminal
 
