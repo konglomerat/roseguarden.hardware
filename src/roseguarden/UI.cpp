@@ -24,7 +24,7 @@ namespace Roseguarden
 	std::string UI::headerTitle = "Device: ";
 
 	const char *connectedServer = "Server: OK";
-	const char *connectedServerError = "Server: !! Error";
+	const char *connectedServerError = "Server: Error";
 	const char *notConnectedServer = "Server:";
 
 	const char *connectedWifi = "Wifi: OK";
@@ -49,7 +49,7 @@ namespace Roseguarden
 	{
 		if (!initialized)
 		{
-			
+
 			// set starttime for wifi spinner
 			gettimeofday(&currentTime, NULL);
 			clock_millis_start = (int64_t)currentTime.tv_sec * 1000000L + (int64_t)currentTime.tv_usec;
@@ -105,7 +105,7 @@ namespace Roseguarden
 			else
 			{
 
-				// wait 500ms and iterate thought loadingSpinnerArray 
+				// wait 500ms and iterate thought loadingSpinnerArray
 				if (clock_millis_diff >= 500000)
 				{
 					if (loadingSpinnerIndex <= 2)
@@ -172,7 +172,7 @@ namespace Roseguarden
 		case Engine::State_t::READY:
 			return "PRESENT CARD";
 		case Engine::State_t::WAIT_AUTH:
-			return "NODE NOT AUTHORIZED";
+			return "NOT AUTHORIZED";
 		case Engine::State_t::OPEN:
 			return "ACCESS GRANTED";
 		case Engine::State_t::ACCESS_DENIED:

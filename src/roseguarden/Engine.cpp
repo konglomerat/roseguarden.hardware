@@ -111,12 +111,26 @@ namespace Roseguarden
 
 	void Engine::initNodeClient()
 	{
+		std::string fingerprintString;
+		const uint32_t numberOfCharactersInFingerprint = 64;
+		uint8_t base_mac_addr[6] = {0};
+		esp_efuse_mac_get_default(base_mac_addr);
+		fingerprintString.resize(numberOfCharactersInFingerprint);
+		std::sprintf(fingerprintString.data(), "%s@%02X:%02X:%02X:%02X:%02X:%02X%c",
+					 CONFIG_ROSEGUARDEN_NODE_FINGERPRINT,
+					 base_mac_addr[0], base_mac_addr[1], base_mac_addr[2],
+					 base_mac_addr[3], base_mac_addr[4], base_mac_addr[5],
+					 '\0');
+
 		RoseguardenNodeClient::Settings_t settings;
 		settings.nodeName = nodeName;
-		settings.fingerprint = CONFIG_ROSEGUARDEN_NODE_FINGERPRINT;
+		settings.fingerprint = fingerprintString;
 		settings.authentification = CONFIG_ROSEGUARDEN_NODE_AUTHENTIFICATION;
 		settings.version = "1.0.0";
 		settings.serverURL = CONFIG_ROSEGUARDEN_SERVER_URL;
+
+		ESP_LOGI(TAG, "Node name: %s", nodeName.c_str());
+		ESP_LOGI(TAG, "Node fingerprint: %s", fingerprintString.c_str());
 
 		RoseguardenNodeClient::init(settings);
 	}
@@ -516,8 +530,33 @@ namespace Roseguarden
 
 		case State_t::WAIT_AUTH:
 		{
-			// do nothing
-			// UI should show information
+			// node not authorized yet
+			if (event == Event_t::UPDATE)
+			{
+				ESP_LOGD(TAG, "Send nodeUpdate to server");
+
+				auto response = RoseguardenNodeClient::sendUpdate();
+
+				if (std::holds_alternative<RoseguardenNodeClient::Action_t>(response))
+				{
+					auto action = std::get<RoseguardenNodeClient::Action_t>(response);
+
+					if (std::holds_alternative<RoseguardenNodeClient::EmptyAction>(action))
+					{
+						ESP_LOGD(TAG, "nodeUpdate ok");
+						proceedToState(State_t::READY);
+						break;
+					}
+					else
+					{
+						ESP_LOGE(TAG, "Server responded with an unexpected action.");
+					}
+				}
+				else
+				{
+					ESP_LOGE(TAG, "Server didn't respond with a known action.");
+				}
+			}
 			break;
 		}
 
